@@ -1,0 +1,211 @@
+/* General styling */
+.home {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 95%;
+  margin: auto;
+}
+
+/* Hero section */
+.hero {
+  background-color: #0044cc;
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.hero button {
+  background-color: #ffcc00;
+  color: #0044cc;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hero button:hover {
+  background-color: #ff9900;
+}
+
+/* Services section */
+.services {
+  position: relative; /* For positioning arrows */
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center; /* Centering cards in the slide */
+}
+
+.slick-slide .card {
+  width: 300px; /* Adjust as needed */
+}
+
+/* Slider arrows */
+.slick-prev,
+.slick-next {
+  font-size: 24px;
+  /* color: white; */
+  z-index: 1;
+  line-height: 1;
+  background: black;
+  cursor: pointer; /* Pointer cursor on hover */
+  content: none !important;
+}
+
+/* Positioning for the arrows */
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+/* Remove any default styling applied on hover */
+.slick-prev:hover,
+.slick-next:hover {
+  background: black; /* Ensure background remains black */
+}
+
+/* Optional: Style for disabled arrows if needed */
+.slick-prev.slick-disabled,
+.slick-next.slick-disabled {
+  opacity: 0.5; /* Make disabled arrows semi-transparent */
+  cursor: not-allowed; /* Change cursor for disabled state */
+}
+
+
+/* Card styling */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+  height: 250px; /* Adjust based on content */
+}
+
+.card-icon {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.card-content p {
+  margin: 0;
+  color: #555;
+}
+
+/* About section */
+.about {
+  margin-top: 50px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact information section */
+.contact-info {
+  margin-top: 50px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Target the link with the 'contact-button' class */
+.contact-button {
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Blue color */
+  padding: 10px 20px; /* Add padding */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #f8f9fa; /* Light background */
+  display: inline-block; /* Ensure it behaves like a button */
+  transition: background-color 0.3s; /* Smooth background color transition */
+  margin-top: 1rem;
+}
+
+.contact-button:hover {
+  background-color: #e2e6ea; /* Darker background on hover */
+}
+
+.contact-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Add custom focus shadow */
+}
+
+/* Responsive styling */
+
+/* Tablets and small devices (portrait) */
+@media (max-width: 768px) {
+  .hero {
+    padding: 30px 10px;
+  }
+
+  .hero button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .slick-slide .card {
+    width: 250px; /* Adjust width for smaller screens */
+  }
+
+  .card {
+    height: auto; /* Adjust height based on content */
+  }
+
+  .contact-info, .about {
+    padding: 15px;
+  }
+}
+
+/* Phones and very small devices */
+@media (max-width: 480px) {
+  .hero {
+    padding: 20px 5px;
+  }
+
+  .hero button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .slick-prev, .slick-next {
+    font-size: 20px;
+  }
+
+  .slick-prev {
+    left: 5px;
+  }
+
+  .slick-next {
+    right: 5px;
+  }
+
+  .slick-slide .card {
+    width: 200px; /* Further adjust width for very small screens */
+  }
+
+  .card {
+    height: auto; /* Ensure height adapts to content */
+  }
+
+  .contact-info, .about {
+    padding: 10px;
+  }
+}

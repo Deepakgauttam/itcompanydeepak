@@ -1,0 +1,151 @@
+/* Login.css */
+
+.login {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  padding: 2em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.login h1 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login label {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.remember-me {
+  /* display: flex; */
+  /* align-items: center; */
+
+  margin-bottom: 1em;
+}
+
+.remember-me input {
+  margin-right: 0.5em;
+}
+
+.login button {
+  padding: 0.5em;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* margin-bottom: 1em; */
+}
+
+.login button:hover {
+  background-color: #0056b3;
+}
+
+.divider {
+  margin: 1.5em 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5em;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+}
+
+.social-login button .icon {
+  margin-right: 0.5em;
+}
+
+.google-login {
+  background-color: #db4437; /* Google Red */
+}
+
+.google-login:hover {
+  background-color: #c23321;
+}
+
+.facebook-login {
+  background-color: #3b5998; /* Facebook Blue */
+}
+
+.facebook-login:hover {
+  background-color: #2a4373;
+}
+
+.otp-login {
+  background-color: #28a745; /* OTP Green */
+}
+
+.otp-login:hover {
+  background-color: #218838;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .login {
+    padding: 1.5em;
+  }
+
+  .login button {
+    padding: 0.5em;
+  }
+
+  .social-login button {
+    padding: 0.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .login {
+    padding: 1em;
+  }
+
+  .login h1 {
+    font-size: 1.5em;
+  }
+
+  .login button {
+    padding: 0.4em;
+  }
+
+  .social-login button {
+    padding: 0.4em;
+  }
+
+  .social-login button .icon {
+    margin-right: 0.4em;
+  }
+}

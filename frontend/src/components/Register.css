@@ -1,0 +1,76 @@
+/* Register.css */
+
+.register-form {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 2em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .register-form h1 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .register-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"],
+  .register-form input[type="tel"] {
+    margin-bottom: 1em;
+    padding: 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .register-form button {
+    padding: 0.75em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .register-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .register-form {
+      padding: 1.5em;
+    }
+  
+    .register-form input,
+    .register-form button {
+      padding: 0.5em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .register-form {
+      padding: 1em;
+    }
+  
+    .register-form h1 {
+      font-size: 1.5em;
+    }
+  
+    .register-form input,
+    .register-form button {
+      padding: 0.4em;
+    }
+  }
+  
