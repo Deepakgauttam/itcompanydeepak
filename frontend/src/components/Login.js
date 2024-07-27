@@ -2,17 +2,37 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { FaGoogle, FaFacebookF, FaMobileAlt } from 'react-icons/fa';
 import './Login.css';
-import Footer from "./Footer";
+import Footer from './Footer';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const { login } = useContext(AuthContext);
+  const { setAuthTokens } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password, rememberMe);
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, rememberMe }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAuthTokens(data.token);
+        alert("Login successful");
+      } else {
+        const errorData = await response.json();
+        alert(`Login failed: ${errorData.message}`);
+      }
+    } catch (error) {
+      alert("An error occurred");
+      console.error("Login error:", error);
+    }
   };
 
   const handleGoogleLogin = () => {
