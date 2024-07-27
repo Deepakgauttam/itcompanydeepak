@@ -28,10 +28,6 @@ app.use('/api/blog', blogRoutes);
 // Error handling middleware
 app.use(errorHandler);
 
-
-// Database connection and server start 
-// useNewUrlParser: true,
-//   useUnifiedTopology: true,
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
   console.log('Connected to MongoDB');

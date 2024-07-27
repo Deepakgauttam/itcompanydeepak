@@ -5,8 +5,13 @@ const Contact = require('../models/Contact');
 // @route   GET /api/contact
 // @access  Private
 const getContacts = asyncHandler(async (req, res) => {
-  const contacts = await Contact.find({});
-  res.json(contacts);
+  try {
+    const contacts = await Contact.find({});
+    res.json(contacts);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Error fetching contacts');
+  }
 });
 
 // @desc    Create a new contact message
@@ -15,14 +20,19 @@ const getContacts = asyncHandler(async (req, res) => {
 const createContact = asyncHandler(async (req, res) => {
   const { name, email, message } = req.body;
 
-  const contact = new Contact({
-    name,
-    email,
-    message,
-  });
+  if (!name || !email || !message) {
+    res.status(400);
+    throw new Error('Please fill all the fields');
+  }
 
-  const createdContact = await contact.save();
-  res.status(201).json(createdContact);
+  try {
+    const contact = new Contact({ name, email, message });
+    const createdContact = await contact.save();
+    res.status(201).json(createdContact);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Error saving contact');
+  }
 });
 
 module.exports = { getContacts, createContact };
