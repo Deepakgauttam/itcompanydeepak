@@ -6,7 +6,7 @@ const AdminPanel = () => {
   const { user } = useAuth();
   const [services, setServices] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [PartnerMembers, setPartnerMembers] = useState([]);
+  const [partnerMembers, setPartnerMembers] = useState([]);
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
@@ -17,23 +17,39 @@ const AdminPanel = () => {
   }, []);
 
   const fetchServices = async () => {
-    const response = await API.get("/services");
-    setServices(response.data);
+    try {
+      const response = await API.get('/services');
+      setServices(response.data);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
   };
 
   const fetchProjects = async () => {
-    const response = await API.get("/projects");
-    setProjects(response.data);
+    try {
+      const response = await API.get('/projects');
+      setProjects(response.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
   };
 
   const fetchPartnerMembers = async () => {
-    const response = await API.get("/Partner");
-    setPartnerMembers(response.data);
+    try {
+      const response = await API.get('/partners');
+      setPartnerMembers(response.data);
+    } catch (error) {
+      console.error('Error fetching partner members:', error);
+    }
   };
 
   const fetchContacts = async () => {
-    const response = await API.get("/contacts");
-    setContacts(response.data);
+    try {
+      const response = await API.get('/contacts');
+      setContacts(response.data);
+    } catch (error) {
+      console.error('Error fetching contacts:', error);
+    }
   };
 
   return (
@@ -58,7 +74,7 @@ const AdminPanel = () => {
       <div>
         <h2>Partner Members</h2>
         <ul>
-          {PartnerMembers.map((member) => (
+          {partnerMembers.map((member) => (
             <li key={member._id}>{member.name}</li>
           ))}
         </ul>

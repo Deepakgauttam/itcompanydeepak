@@ -1,14 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { FaGoogle, FaFacebookF, FaMobileAlt } from 'react-icons/fa';
-import './Login.css';
-import Footer from './Footer';
+import { useNavigate } from "react-router-dom";
+import { FaGoogle, FaFacebookF, FaMobileAlt } from "react-icons/fa";
+import "./Login.css";
+import Footer from "./Footer";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const { setAuthTokens } = useContext(AuthContext);
+  const { setAuthTokens, userName, setUserName } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,9 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
         setAuthTokens(data.token);
+        setUserName(data.name); // Assuming you get the name from the response
         alert("Login successful");
+        navigate("/admin"); // Redirect to admin panel
       } else {
         const errorData = await response.json();
         alert(`Login failed: ${errorData.message}`);
