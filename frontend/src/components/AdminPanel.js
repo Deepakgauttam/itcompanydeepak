@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../utils/API';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/AuthContext';
+import './AdminPanel.css'; 
 
 const AdminPanel = () => {
   const { user } = useAuth();
@@ -8,53 +9,45 @@ const AdminPanel = () => {
   const [projects, setProjects] = useState([]);
   const [partnerMembers, setPartnerMembers] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchServices();
-    fetchProjects();
-    fetchPartnerMembers();
-    fetchContacts();
+    const fetchData = async () => {
+      try {
+        const [servicesResponse, projectsResponse, partnersResponse, contactsResponse] = await Promise.all([
+          API.get('/services'),
+          API.get('/projects'),
+          API.get('/partners'),
+          API.get('/contacts')
+        ]);
+
+        setServices(servicesResponse.data);
+        setProjects(projectsResponse.data);
+        setPartnerMembers(partnersResponse.data);
+        setContacts(contactsResponse.data);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('An error occurred while fetching data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const fetchServices = async () => {
-    try {
-      const response = await API.get('/services');
-      setServices(response.data);
-    } catch (error) {
-      console.error('Error fetching services:', error);
-    }
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const fetchProjects = async () => {
-    try {
-      const response = await API.get('/projects');
-      setProjects(response.data);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    }
-  };
-
-  const fetchPartnerMembers = async () => {
-    try {
-      const response = await API.get('/partners');
-      setPartnerMembers(response.data);
-    } catch (error) {
-      console.error('Error fetching partner members:', error);
-    }
-  };
-
-  const fetchContacts = async () => {
-    try {
-      const response = await API.get('/contacts');
-      setContacts(response.data);
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-    }
-  };
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="admin-panel">
-      <h1>Admin Panel</h1>
+      <h1>Welcome, {user?.name}</h1>
       <div>
         <h2>Services</h2>
         <ul>

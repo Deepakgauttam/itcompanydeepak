@@ -27,26 +27,59 @@
 // };
 
 // src/context/AuthContext.js
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// import React, { createContext, useContext, useState } from 'react';
+
+// const AuthContext = createContext();
+
+// export const AuthProvider = ({ children }) => {
+//   const [authTokens, setAuthTokens] = useState(null);
+//   const [userName, setUserName] = useState('');
+
+//   const login = (tokens, user) => {
+//     setAuthTokens(tokens);
+//     setUserName(user);
+//   };
+
+//   const logout = () => {
+//     setAuthTokens(null);
+//     setUserName('');
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ authTokens, login, logout, userName }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => useContext(AuthContext);
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(null);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
 
-  const login = (tokens, user) => {
-    setAuthTokens(tokens);
-    setUserName(user);
+  const login = (token) => {
+    setAuthTokens(token);
+    localStorage.setItem('authTokens', token);
   };
 
   const logout = () => {
     setAuthTokens(null);
-    setUserName('');
+    localStorage.removeItem('authTokens');
   };
 
   return (
-    <AuthContext.Provider value={{ authTokens, login, logout, userName }}>
+    <AuthContext.Provider value={{ authTokens, login, logout, userName, setUserName }}>
       {children}
     </AuthContext.Provider>
   );

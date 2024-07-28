@@ -107,7 +107,7 @@ import "./Login.css";
 import Footer from "./Footer";
 
 function Login() {
-  console.log("Login component rendered"); // Add this line
+  console.log("Login component rendered");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,7 +117,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted"); // Add this line
+    console.log("Form submitted");
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -130,13 +130,19 @@ function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token);
-        setUserName(data.name); // Assuming you get the name from the response
-        alert("Login successful");
-        navigate("/admin"); // Redirect to admin panel
+        console.log("Login response data:", data); // Log the response data
+        if (data.token && data.name) {
+          login(data.token);
+          setUserName(data.name);
+          alert("Login successful");
+          navigate("/admin");
+        } else {
+          alert("Login failed: Invalid response data");
+        }
       } else {
         const errorData = await response.json();
         alert(`Login failed: ${errorData.message}`);
+        console.error("Error data:", errorData);
       }
     } catch (error) {
       alert("An error occurred");
@@ -145,15 +151,15 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Google login clicked"); // Add this line
+    console.log("Google login clicked");
   };
 
   const handleFacebookLogin = () => {
-    console.log("Facebook login clicked"); // Add this line
+    console.log("Facebook login clicked");
   };
 
   const handleOTPLogin = () => {
-    console.log("OTP login clicked"); // Add this line
+    console.log("OTP login clicked");
   };
 
   return (
