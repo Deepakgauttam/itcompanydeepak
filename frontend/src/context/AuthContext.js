@@ -1,33 +1,55 @@
-import React, { createContext, useState, useEffect } from 'react';
+// // src/context/AuthContext.js
+// import React, { createContext, useContext, useState } from 'react';
 
-export const AuthContext = createContext();
+// const AuthContext = createContext();
+
+// export const useAuth = () => useContext(AuthContext);
+
+// export const AuthProvider = ({ children }) => {
+//   const [authTokens, setAuthTokens] = useState(null);
+//   const [userName, setUserName] = useState('');
+
+//   const login = (tokens, name) => {
+//     setAuthTokens(tokens);
+//     setUserName(name);
+//   };
+
+//   const logout = () => {
+//     setAuthTokens(null);
+//     setUserName('');
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ authTokens, userName, login, logout }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// src/context/AuthContext.js
+import React, { createContext, useContext, useState } from 'react';
+
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(null);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('');
 
-  useEffect(() => {
-    const tokens = localStorage.getItem('authTokens');
-    const name = localStorage.getItem('userName');
-    if (tokens) {
-      setAuthTokens(tokens);
-      setUserName(name);
-    }
-  }, []);
-
-  const setTokens = (data) => {
-    localStorage.setItem('authTokens', data);
-    setAuthTokens(data);
+  const login = (tokens, user) => {
+    setAuthTokens(tokens);
+    setUserName(user);
   };
 
-  const setName = (name) => {
-    localStorage.setItem('userName', name);
-    setUserName(name);
+  const logout = () => {
+    setAuthTokens(null);
+    setUserName('');
   };
 
   return (
-    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens, userName, setUserName: setName }}>
+    <AuthContext.Provider value={{ authTokens, login, logout, userName }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

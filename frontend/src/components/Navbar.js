@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/AuthContext'; // Ensure this path is correct
 import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage menu toggle
-  const { authTokens, setAuthTokens } = useAuth();
-
-  const handleLogout = () => {
-    setAuthTokens(null);
-  };
+  const { authTokens, logout, userName } = useAuth(); // Updated to include logout and userName
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -46,7 +42,8 @@ const Navbar = () => {
               <Link to="/admin" onClick={() => setIsOpen(false)}>
                 Admin
               </Link>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={logout}>Logout</button>
+              <span>Welcome, {userName}</span> {/* Display username */}
             </>
           ) : (
             <>

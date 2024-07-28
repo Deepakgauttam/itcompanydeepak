@@ -9,7 +9,11 @@ import Login from './components/Login';
 import Register from "./components/Register";
 import AdminPanel from "./components/AdminPanel";
 import Navbar from './components/Navbar';
+import BlogPost from "./components/BlogPost";
 import PrivateRoute from "./utils/PrivateRoute";
+import CreatePost from "./components/CreatePost";
+import EditPost from "./components/EditPost";
+import DeletePost from "./components/DeletePost";
 
 const App = () => {
   return (
@@ -31,10 +35,31 @@ const App = () => {
             </PrivateRoute>
           }
         />
-        
-        <Route path="/blog" exact component={Blog} />
-        {/* <Route path="/blog/:id" component={BlogPost} /> */}
-        {/* <Route path="/blog/:id" component={BlogDetail} /> */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route
+          path="/create-post"
+          element={
+            <PrivateRoute>
+              <CreatePost />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/edit-post/:id"
+          element={
+            <PrivateRoute>
+              <EditPost />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/delete-post/:id"
+          element={
+            <PrivateRoute>
+              <DeletePost />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );

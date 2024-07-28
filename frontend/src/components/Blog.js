@@ -30,8 +30,10 @@ function Blog() {
   return (
     <div>
       <div className="blog">
+        <div className="all-blog-post">
         <h1>Our Blog</h1>
         <p>Read our latest updates and articles.</p>
+        </div>
         <div className="blog-posts">
           {blogPosts.map((post) => (
             <div key={post._id} className="blog-post">

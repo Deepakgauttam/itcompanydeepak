@@ -6,6 +6,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .blog-post {
@@ -29,4 +31,11 @@
 
 .read-more:hover {
   text-decoration: underline;
+}
+
+.all-blog-post{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
 }

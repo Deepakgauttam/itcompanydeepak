@@ -1,48 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './Blog.css';
+import './BlogPost.css';
 import Footer from './Footer';
 
 function BlogPost() {
   const { id } = useParams();
-  const [blogPost, setBlogPost] = useState(null);
+  const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBlogPost = async () => {
+    const fetchPost = async () => {
       try {
         const response = await axios.get(`/api/blog-posts/${id}`);
-        setBlogPost(response.data);
+        setPost(response.data);
       } catch (error) {
-        console.error('Error fetching blog post data:', error);
+        console.error('Error fetching blog post:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBlogPost();
+    fetchPost();
   }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (!blogPost) {
-    return <div>Blog post not found</div>;
+  if (!post) {
+    return <div>Post not found</div>;
   }
 
   return (
     <div>
-      <div className="blog-post">
-        <h1>{blogPost.title}</h1>
-        <img
-          src={blogPost.image}
-          alt={blogPost.title}
-          className="blog-post-image"
-        />
-        <p>{blogPost.summary}</p>
-        <div>{blogPost.content}</div>
+      <div className="blog-post-details">
+        <img src={post.image} alt={post.title} className="blog-post-image" />
+        <h1>{post.title}</h1>
+        <p>{post.content}</p>
       </div>
       <Footer />
     </div>
