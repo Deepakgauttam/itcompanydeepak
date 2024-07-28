@@ -1,28 +1,81 @@
-const asyncHandler = require('express-async-handler');
-const Blog = require('../models/Blog');
+const BlogPost = require('../models/BlogPost');
 
-// @desc    Get all blog posts
-// @route   GET /api/blog
-// @access  Public
-const getBlogs = asyncHandler(async (req, res) => {
-  const blogs = await Blog.find({});
-  res.json(blogs);
-});
+// Get all blog posts
+exports.getAllBlogPosts = async (req, res) => {
+  try {
+    const blogPosts = await BlogPost.find();
+    res.json(blogPosts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-// @desc    Create a new blog post
-// @route   POST /api/blog
-// @access  Private
-const createBlog = asyncHandler(async (req, res) => {
-  const { title, content, imageUrl } = req.body;
+// Get a single blog post
+exports.getBlogPostById = async (req, res) => {
+  try {
+    const blogPost = await BlogPost.findById(req.params.id);
+    if (!blogPost) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.json(blogPost);
+  } catch (error) {
+    console.error(error);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-  const blog = new Blog({
-    title,
-    content,
-    imageUrl,
-  });
+// Create a new blog post
+exports.createBlogPost = async (req, res) => {
+  const { title, summary, content, image, link } = req.body;
+  try {
+    const newBlogPost = new BlogPost({ title, summary, content, image, link });
+    await newBlogPost.save();
+    res.status(201).json(newBlogPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-  const createdBlog = await blog.save();
-  res.status(201).json(createdBlog);
-});
+// Update a blog post
+exports.updateBlogPost = async (req, res) => {
+  const { title, summary, content, image, link } = req.body;
+  try {
+    const blogPost = await BlogPost.findByIdAndUpdate(
+      req.params.id,
+      { title, summary, content, image, link },
+      { new: true }
+    );
+    if (!blogPost) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.json(blogPost);
+  } catch (error) {
+    console.error(error);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
-module.exports = { getBlogs, createBlog };
+// Delete a blog post
+exports.deleteBlogPost = async (req, res) => {
+  try {
+    const blogPost = await BlogPost.findByIdAndDelete(req.params.id);
+    if (!blogPost) {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.json({ message: 'Blog post deleted' });
+  } catch (error) {
+    console.error(error);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ message: 'Blog post not found' });
+    }
+    res.status(500).json({ message: 'Server error' });
+  }
+};

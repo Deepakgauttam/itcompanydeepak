@@ -31,6 +31,10 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        
+        <Route path="/blog" exact component={Blog} />
+        {/* <Route path="/blog/:id" component={BlogPost} /> */}
+        {/* <Route path="/blog/:id" component={BlogDetail} /> */}
       </Routes>
     </Router>
   );
